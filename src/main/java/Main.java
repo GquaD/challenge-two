@@ -19,6 +19,10 @@ public class Main {
         for (String s : list) sb.append(s);
         String json = sb.toString();
 
+        checkIfJSONValid(json);
+    }
+
+    private static void checkIfJSONValid(String json) {
         if (!bracketsValid(json)) {
             System.out.println("Invalid json");
             System.exit(1);
@@ -36,14 +40,11 @@ public class Main {
         String[] split = json.split(",");
         for (int i = 0; i < split.length; i++) {
             String s = split[i];
-//            if (s.length() < 2 && !s.equals("}")) return false;
-//            if (!s.equals("}")) {
             String[] arr = s.split(":");
             if (arr.length < 2) return false;
             boolean keyCorrect = isKeyCorrect(arr[0]);
             boolean valCorrect = isValueCorrect(arr[1]);
             if (!keyCorrect || !valCorrect) return false;
-//            }
         }
         return true;
     }
@@ -51,6 +52,7 @@ public class Main {
     private static boolean isValueCorrect(String s) {
         int countQuotes = 0;
         s = s.trim();
+        if (s.startsWith("{")) checkIfJSONValid(s);
         for (int i = 0; i < s.length(); i++) if (s.charAt(i) == '"') countQuotes++;
         if (!(countQuotes == 2 || countQuotes == 0)) return false;
         if (countQuotes == 2) {
