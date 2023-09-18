@@ -14,7 +14,7 @@ public class JSONDeserializer {
         if (!allBracketsValid()) {
             throw new IllegalStateException("Invalid json: Invalid brackets or braces.");
         }
-
+        return null;
     }
 
     private boolean allBracketsValid() {
